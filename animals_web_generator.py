@@ -8,28 +8,33 @@ def load_data(file_path):
 
 
 def get_animal_info(animals_list):
-    output = ""
+    """This function retrieves the name, diet, location and, if provided, type
+    of each animal and returns it in a string."""
+    name_diet_location_type = ""
     for animal in animals_list:
-        output += f"Name: {animal["name"]}<br>\n"
-        output += f"Diet: {animal["characteristics"]["diet"]}<br>\n"
-        output += f"Location: {animal["locations"][0]}<br>\n"
+        name_diet_location_type += f"Name: {animal["name"]}<br>\n"
+        name_diet_location_type += f"Diet: {animal["characteristics"]["diet"]}<br>\n"
+        name_diet_location_type += f"Location: {animal["locations"][0]}<br>\n"
         if "type" in animal["characteristics"]:
-            output += f"Type: {animal["characteristics"]["type"]}<br>\n"
-        output += "<br>\n"
-    return output
+            name_diet_location_type += f"Type: {animal["characteristics"]["type"]}<br>\n"
+        name_diet_location_type += "<br>\n"
+    return name_diet_location_type
 
 
 def main():
+    """This function reads animal data from 'animals_data.json', inserts it into 'animals_template.html',
+    and writes the result to 'new_animals_template.html'."""
+
     animals_data = load_data('animals_data.json')
     formatted_data = get_animal_info(animals_data)
 
     with open("animals_template.html", "r") as file:
-        template_content = file.read()
-        replace_text = template_content.replace("__REPLACE_ANIMALS_INFO__", formatted_data)
-        print(replace_text)
+        animals_template_content = file.read()
+        actual_animal_data = animals_template_content.replace("__REPLACE_ANIMALS_INFO__", formatted_data)
+        print(actual_animal_data)
 
     with open("new_animals_template.html", "w") as file:
-        file.write(replace_text)
+        file.write(actual_animal_data)
 
 
 if __name__ == "__main__":
