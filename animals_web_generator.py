@@ -7,19 +7,24 @@ def load_data(file_path):
         return json.load(handle)
 
 
-def get_animal_info(animals_list):
-    """This function retrieves the name, diet, location and, if provided, type
-    of each animal and returns it in a string."""
-    name_diet_location_type = ""
-    for animal in animals_list:
-        name_diet_location_type += '<li class="cards__item">'
-        name_diet_location_type += f"Name: {animal["name"]}<br>\n"
-        name_diet_location_type += f"Diet: {animal["characteristics"]["diet"]}<br>\n"
-        name_diet_location_type += f"Location: {animal["locations"][0]}<br>\n"
-        if "type" in animal["characteristics"]:
-            name_diet_location_type += f"Type: {animal["characteristics"]["type"]}<br>\n"
-        name_diet_location_type += '</li>'
+def serialize_animal(animal_obj):
+    """This function allows for the serialization of a single animal object."""
+    name_diet_location_type = ''
+    name_diet_location_type += '<li class="cards__item">\n'
+    name_diet_location_type += f'<div class="card__title">{animal_obj["name"]}</div>\n</br>'
+    name_diet_location_type += f'<div class="card__text"><b>Diet: </b>{animal_obj["characteristics"]["diet"]}<br>\n'
+    name_diet_location_type += f'<div class="card__text"><b>Location: </b>{animal_obj["locations"][0]}<br>\n'
+    if "type" in animal_obj["characteristics"]:
+        name_diet_location_type += f'<div class="card__text"><b>Type: </b>{animal_obj["characteristics"]["type"]}<br>\n'
     return name_diet_location_type
+
+
+def get_animal_info(animals_list):
+    """This function returns the animals' name, diet, location and, if provided, type in a string."""
+    name_diet_loc_type = ""
+    for animal in animals_list:
+        name_diet_loc_type += serialize_animal(animal)
+    return name_diet_loc_type
 
 
 def main():
