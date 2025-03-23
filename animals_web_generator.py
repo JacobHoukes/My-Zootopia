@@ -12,12 +12,13 @@ def get_animal_info(animals_list):
     of each animal and returns it in a string."""
     name_diet_location_type = ""
     for animal in animals_list:
+        name_diet_location_type += '<li class="cards__item">'
         name_diet_location_type += f"Name: {animal["name"]}<br>\n"
         name_diet_location_type += f"Diet: {animal["characteristics"]["diet"]}<br>\n"
         name_diet_location_type += f"Location: {animal["locations"][0]}<br>\n"
         if "type" in animal["characteristics"]:
             name_diet_location_type += f"Type: {animal["characteristics"]["type"]}<br>\n"
-        name_diet_location_type += "<br>\n"
+        name_diet_location_type += '</li>'
     return name_diet_location_type
 
 
