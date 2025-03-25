@@ -28,6 +28,8 @@ def get_animal_info(animals_list):
 
 
 def read_html(file_path, formatted_data):
+    """This function reads file_path and returns its content
+    with the "__REPLACE_ANIMALS_INFO__" replaced by formatted_data."""
     with open(file_path, "r", encoding='utf-8') as file:
         animals_template_content = file.read()
         actual_animal_data = animals_template_content.replace("__REPLACE_ANIMALS_INFO__", formatted_data)
@@ -35,6 +37,7 @@ def read_html(file_path, formatted_data):
 
 
 def write_html(file_path, new_content):
+    """This function writes new_content into file_path."""
     with open(file_path, "w", encoding='utf-8') as file:
         file.write(new_content)
 
